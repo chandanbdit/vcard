@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chandan Digital Card</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for aesthetic buttons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Inter font and smooth background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark GitHub-like background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .card {
+            background-color: #161b22; /* Slightly lighter card background */
+            color: #c9d1d9; /* Light text color */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        /* Custom button styling for main actions */
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem; 
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            text-align: center;
+        }
+        /* Specific styling for small icon-only buttons */
+        .btn-icon {
+            padding: 0.75rem; /* Make it square/round */
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+        .btn-primary {
+            background-color: #238636; /* GitHub green */
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background-color: #2ea043;
+            box-shadow: 0 4px 6px rgba(35, 134, 54, 0.4);
+        }
+        .btn-secondary {
+            background-color: #30363d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+        .btn-secondary:hover {
+            background-color: #40464f;
+            border-color: #8b949e;
+        }
+
+        /* Banner styling */
+        .banner {
+            height: 260px;
+            /* REVERTED for GitHub Pages deployment */
+            background-image: url('./Chandan_Background.png');
+            background-size: cover;
+            background-position: center;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="contact-card" class="card max-w-sm w-full mx-auto rounded-3xl pb-8 relative">
+        
+        <!-- 1. Banner Image -->
+        <div class="banner"></div>
+
+        <!-- Content Area -->
+        <div class="px-8">
+            
+            <!-- 2. Profile Picture (Positioned to slightly overlap the banner) -->
+            <div class="text-center -mt-16 mb-4">
+                <!-- REVERTED for GitHub Pages deployment -->
+                <img src="./chandan_Profile.png" 
+                     onerror="this.src='https://placehold.co/120x120/4f46e5/ffffff?text=CS'" 
+                     alt="Profile Picture" 
+                     class="w-32 h-32 rounded-full mx-auto ring-4 ring-indigo-500 object-cover border-4 border-[#161b22]">
+            </div>
+
+            <!-- Profile Header Details (Updated Name/Title) -->
+            <header class="text-center mb-6">
+                <h1 class="text-3xl font-bold text-gray-100">Chandan Mondal</h1>
+                <p class="text-indigo-400 font-medium text-lg">Sr.Executive, IT</p>
+                <p class="text-gray-400 text-sm mt-1">Masco Group</p>
+            </header>
+
+            <!-- Action Buttons (Call and Save) -->
+            <div class="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-3 mb-6">
+                
+                <!-- Save Contact Button (vCard) -->
+                <button onclick="downloadVCard()" class="btn-action btn-primary w-full">
+                    <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>
+                    Save Contact
+                </button>
+                
+                <!-- Call Button -->
+                <a href="tel:+8801912686153" class="btn-action btn-secondary w-full">
+                    <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
+                    Call Now
+                </a>
+            </div>
+
+            <!-- About Section -->
+            <section class="pt-4 border-t border-gray-700 mb-6">
+                <h2 class="text-xl font-semibold mb-3 text-white">About Me</h2>
+                <p class="text-gray-400 leading-relaxed text-sm">
+                    I am an expert in Artificial Intelligence and Machine Learning, focusing on building scalable solutions that drive innovative futures. I specialize in deep learning models and cloud infrastructure, committed to turning data into actionable insights.
+                </p>
+            </section>
+
+            <!-- Links Section -->
+            <section class="mb-6">
+                <h2 class="text-xl font-semibold mb-3 text-white">My Work</h2>
+                <div class="space-y-3">
+                    
+                    <!-- GitHub Link -->
+                    <a href="https://github.com/chandan-mondal" target="_blank" class="flex items-center btn-action btn-secondary w-full">
+                        <i data-lucide="github" class="w-5 h-5 mr-3"></i>
+                        Visit My GitHub Profile
+                    </a>
+
+                    <!-- Email Link -->
+                    <a href="mailto:chandanbd.cse@gmail.com" class="flex items-center btn-action btn-secondary w-full">
+                        <i data-lucide="mail" class="w-5 h-5 mr-3"></i>
+                        Send Me an Email
+                    </a>
+                </div>
+            </section>
+
+            <!-- Social Links Section (New Addition) -->
+            <section class="pt-4 border-t border-gray-700">
+                <h2 class="text-xl font-semibold mb-3 text-white">Connect on Social</h2>
+                <div class="flex justify-center space-x-4">
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/chandanmondal1" target="_blank" title="LinkedIn" class="btn-action btn-secondary btn-icon">
+                        <i data-lucide="linkedin" class="w-6 h-6"></i>
+                    </a>
+                    <!-- X (Twitter) - Lucide uses 'twitter' for the X icon -->
+                    <a href="https://x.com/chandan_mondal1" target="_blank" title="X (Twitter)" class="btn-action btn-secondary btn-icon">
+                        <i data-lucide="twitter" class="w-6 h-6"></i>
+                    </a>
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/chandan.itcse" target="_blank" title="Facebook" class="btn-action btn-secondary btn-icon">
+                        <i data-lucide="facebook" class="w-6 h-6"></i>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons after the DOM loads
+        lucide.createIcons();
+
+        // --- JavaScript for vCard Download ---
+        function downloadVCard() {
+            // Personal and contact details used to generate the vCard file
+            const name = "Chandan Mondal";
+            const firstName = "Chandan";
+            const lastName = "Mondal";
+            const title = "Sr.Executive, IT";
+            const org = "Masco Group"; // Change if you want a specific company name
+            // Using a simple format for better VCard parsing
+            const phone = "+8801912686153"; 
+            const email = "chandanbd.cse@gmail.com";
+            const githubUrl = "https://github.com/chandan-mondal";
+
+            const vCardContent = `BEGIN:VCARD
+VERSION:3.0
+N:${lastName};${firstName};;;
+FN:${name}
+ORG:${org}
+TITLE:${title}
+TEL;TYPE=WORK,VOICE:${phone}
+EMAIL;TYPE=PREF,INTERNET:${email}
+URL:${githubUrl}
+END:VCARD`;
+
+            // Create a Blob containing the vCard content with the correct MIME type
+            const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
+            
+            // Create a temporary link element to trigger the download
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${firstName}_${lastName}_Contact.vcf`; // Suggested filename
+            
+            // KEY CHANGE: Setting target='_blank' can help trigger the native
+            // "open with" prompt on mobile devices.
+            link.target = '_blank';
+            
+            // Append to the body, click it, and then remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Clean up the object URL
+            setTimeout(() => {
+                URL.revokeObjectURL(link.href);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
