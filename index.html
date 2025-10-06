@@ -66,9 +66,8 @@
         /* Banner styling */
         .banner {
             height: 260px;
-            /* REVERTED for GitHub Pages deployment */
-            /* Using the uploaded file name for demonstration */
-            background-image: url('./Chandan_Background.jpg'); 
+            /* Using the uploaded file name */
+            background-image: url('./Chandan_Background.jpg');
             background-size: cover;
             background-position: center;
             border-top-left-radius: 24px;
@@ -99,10 +98,10 @@
 
             <div class="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-3 mb-6">
                 
-                <button onclick="downloadVCard()" class="btn-action btn-primary w-full">
+                <a id="save-contact-link" href="#" class="btn-action btn-primary w-full">
                     <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>
                     Save Contact
-                </button>
+                </a>
                 
                 <a href="tel:+8801912686153" class="btn-action btn-secondary w-full">
                     <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
@@ -154,9 +153,8 @@
         // Initialize Lucide Icons after the DOM loads
         lucide.createIcons();
 
-        // --- JavaScript for vCard Direct Open (Modified for phone prompt) ---
-        function downloadVCard() {
-            // Personal and contact details used to generate the vCard file
+        // --- JavaScript for vCard Data URI Generation ---
+        function generateVCardURI() {
             const name = "Chandan Mondal";
             const firstName = "Chandan";
             const lastName = "Mondal";
@@ -177,31 +175,30 @@ EMAIL;TYPE=PREF,INTERNET:${email}
 URL:${githubUrl}
 END:VCARD`;
 
-            // Create a Blob containing the vCard content
-            const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
-            
-            // Create a temporary link element
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            
-            // *** REMOVED the 'link.download' property. ***
-            // This is the key change. By removing the 'download' attribute, 
-            // the browser treats the link as a navigation and opens the generated 
-            // file directly. For mobile OS, this often results in a "Save Contact" prompt.
-            
-            // This line is kept as it is effective for mobile prompting:
-            link.target = '_blank'; 
-            
-            // Append to the body, click it, and then remove it
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // Encode the vCard content for use in a Data URI
+            const encodedVCard = encodeURIComponent(vCardContent);
 
-            // Clean up the object URL
-            setTimeout(() => {
-                URL.revokeObjectURL(link.href);
-            }, 100);
+            // Create the Data URI
+            // text/vcard is the MIME type, charset=utf-8 for encoding
+            const dataURI = 'data:text/vcard;charset=utf-8,' + encodedVCard;
+            
+            return dataURI;
         }
+
+        // Run this on page load to set the href of the "Save Contact" link
+        document.addEventListener('DOMContentLoaded', () => {
+            const saveLink = document.getElementById('save-contact-link');
+            if (saveLink) {
+                // Set the href to the generated Data URI
+                saveLink.href = generateVCardURI();
+                
+                // IMPORTANT: Add a 'download' attribute *only* for browsers that 
+                // don't natively handle the Data URI as a contact (mainly desktop browsers).
+                // This will still download on desktop but ensures the link is functional everywhere.
+                // Mobile OS often ignore the download attribute when a Data URI is used for vCard.
+                saveLink.setAttribute('download', 'Chandan_Mondal.vcf');
+            }
+        });
     </script>
 </body>
 </html>
